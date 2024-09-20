@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFE600">
+    <title>Mercado Livre Brasil</title>
+    <link rel="icon" href="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadolibre/favicon.svg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background: #EDEDED;
+        }
+
+        .header-content {
+            background: #FFE600;
+            padding: 20px 0;
+        }
+
+        .header-top {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .form-control, .form-control:focus {
+            border: 1px solid #d1d1d1;
+            box-shadow: none;
+        }
+
+        .btn-search, .btn-search:focus {
+            background: #ffffff;
+            border: 1px solid #d1d1d1;
+            border-left: 1px solid #b6b6b670;;
+            border-radius: 4px;
+            box-shadow: none;
+        }
+
+        .header-center img {
+            max-height: 50px;
+        }
+
+        .image-disney-plus {
+            max-width: 350px;
+        }
+
+        .section-product-navigation {
+            font-size: 13px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            background: #ffffff;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            border-radius: 4px;
+            padding-bottom: 10px;
+        }
+
+        .product-img {
+            border-radius: 10px;
+        }
+
+        .product-buy {
+            max-width: 400px;
+            border: 1px solid #e0e0e0;
+            margin: 20px;
+            padding: 10px 20px 25px 20px;
+            border-radius: 10px;
+        }
+
+        .label-free-shipping {
+            background: #F87733;
+            color: #ffffff;
+            display: inline;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 6px;
+        }
+
+        .c-text-success {
+            color: #16AE5F;
+        }
+
+        .c-text-primary {
+            color: #3483fa;
+        }
+
+        .c-font-bold {
+            font-weight: 600;
+        }
+
+        .c-button-primary, .c-button-primary:focus {
+            background: #3483fa;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 12px 0px;
+            box-shadow: none;
+        }
+
+        .c-button-primary:hover {
+            background: #3079e7;
+            color: #ffffff;
+        }
+
+        .c-button-secondary, .c-button-secondary:focus {
+            background: #e3edfb;
+            color: #3079e7;
+            font-weight: 600;
+            padding: 12px 0px;
+            box-shadow: none;
+        }
+
+        .c-button-secondary:hover {
+            background: #deeafa;
+            color: #3079e7;
+        }
+
+        .c-font-small {
+            font-size: 15px;
+        }
+
+        .c-font-m-small {
+            font-size: 13px;
+        }
+
+        .review-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+
+        .review-message {
+            max-width: 500px;
+        }
+
+        .advertising-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            background-color: #ffffff;
+        }
+
+        .footer-center {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            font-size: 13px;
+        }
+
+        .loading-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner-border {
+            color: #3483fa;
+            width: 3rem;
+            height: 3rem;
+        }
+
+        @media (max-width: 1168px) {
+            .header-top {
+                display: block;
+                text-align: center;
+            }
+
+            .header-center {
+                display: none;
+            }
+
+            .header-bottom, .image-disney-plus, .form-control, .btn-search {
+                display: none;
+            }
+
+            .section-product-navigation {
+                margin-left: 15px;
+            }
+
+            .main-content {
+                display: block;
+                justify-content: center;
+            }
+
+            .product-buy {
+                max-width: 100%;
+            }
+        }
+    </style>
+    <!-- Meta Pixel Code -->
+<script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1223728932206445');
+    fbq('track', 'PageView');
+    fbq('track', 'Purchase', {value: 0.00, currency: 'USD'});
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1223728932206445&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+<body>
+    <div class="loading-content text-center">
+        <div class="spinner-border"></div>
+    </div>
+    <header class="header-content" style="display:none;">
+        <div class="header-top">
+            <div class="me-4">
+                <img src="https://aniversariobrmercadolider.shop/cdn/shop/files/logoml25anos05_60x@2x.png?v=1725768733" alt="logo">
+            </div>
+            <div class="input-group ms-4">
+                <input type="text" class="form-control" placeholder="Buscar no Mercado Livre">
+                <button class="btn btn-search" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+            <div class="ms-4">
+                <img class="image-disney-plus img-fluid" src="https://aniversariobrmercadolider.shop/cdn/shop/t/7/assets/merlin.png?v=153294316606348575811725766582" alt="x">
+            </div>
+        </div>
+        <div class="header-bottom justify-content-between align-items-center mt-3">
+            <div class="c-font-small d-flex">
+                <div class="me-4">
+                    <span>Categorias</span>
+                </div>
+                <div class="me-4">
+                    <span>Ofertas</span>
+                </div>
+                <div class="me-4">
+                    <span>Cupons</span>
+                </div>
+                <div class="me-4">
+                    <span>Supermercado</span>
+                </div>
+                <div class="me-4">
+                    <span>Moda</span>
+                </div>
+            </div>
+            <div class="c-font-small align-items-center d-flex">
+                <div class="me-4">
+                    <span>Minha conta</span>
+                </div>
+                <div class="me-3">
+                    <span>Rastrear Pedido</span>
+                </div>
+                <div>
+                    <span><i class="bi bi-cart fs-5"></i></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="section-product-navigation mt-4" style="display:none;">
+        <div class="d-flex text-secondary">
+            <div>
+                <span>Pagina inicial</span>
+            </div>
+            <div class="ms-2 me-2">
+                <span>></span>
+            </div>
+            <div>
+                <span>Todos os produtos</span>
+            </div>
+            <div class="ms-2 me-2">
+                <span>></span>
+            </div>
+            <div>
+                <span class="c-text-primary product-link"></span>
+            </div>
+        </div>
+    </section>
+    <main class="main-content mt-4 justify-content-between" style="display:none;">
+        <div class="p-4">
+            <img class="product-img img-fluid" alt="imagem">
+        </div>
+        <div class="product-buy">
+            <div>
+                <span class="c-font-m-small text-secondary">Destaque | 991 vendidos</span>
+            </div>
+            <div class="mt-2 mb-3">
+                <h4 class="product-name"></h4>
+            </div>
+            <div class="text-warning mb-2">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <span class="text-secondary c-font-bold">5.0 (515 Avaliações)</span>
+            </div>
+            <div class="label-free-shipping">
+                <span>FRETE GRÁTIS</span>
+            </div>
+            <div class="c-font-m-small text-secondary text-decoration-line-through mt-3">
+                <span class="default-price"></span>
+            </div>
+            <div class="d-flex align-items-end">
+                <div>
+                    <h1 class="fw-normal">R$ <span class="discount-price"></span></h1>
+                </div>
+                <div class="ms-1">
+                    <h5 class="c-text-success fw-normal">-<span class="percentage-discount"></span>% OFF</h5>
+                </div>
+            </div>
+            <div>
+                <span class="text-secondary c-font-bold"><i class="bi bi-credit-card"></i> em <span class="c-text-success">12x</span> de <span class="c-text-success">R$ <span class="installment-price"></span></span></span>
+            </div>
+            <div class="mt-2">
+                <span class="c-text-primary">Ver mais opções de pagamento</span>
+            </div>
+            <div class="mt-3">
+                <div>
+                    <span class="c-text-success c-font-bold"><i class="bi bi-truck"></i> Frete Grátis</span>
+                </div>
+                <div>
+                    <span class="text-secondary">Receba entre: <span id="delivery-date" class="c-font-bold">0 e 0 de mês.</span></span>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="text-secondary c-font-small">
+                    <i class="bi bi-check-circle"></i>
+                    <span class="c-font-bold c-text-primary">Devolução Grátis</span> Você tem até 90 dias de Garantia!
+                </span>
+            </div>
+            <div class="mt-3">
+                <a href="payment.html" class="btn c-button-primary w-100">Comprar agora</a>
+            </div>
+            <div class="mt-3">
+                <a href="payment.html" class="btn c-button-secondary w-100">Adicionar ao carrinho</a>
+            </div>
+        </div>
+    </main>
+    <section class="review-content rounded p-4 mt-5" style="display:none;">
+        <div class="">
+            <div>
+                <h4>Opiniões do produto</h4>
+            </div>
+            <div class="row justify-content-start"></div>
+            <div class="d-flex mt-2">
+                <span class="c-text-primary c-font-m-small">Mostrar todas as opiniões</span>
+            </div>
+        </div>
+    </section>
+    <section class="advertising-content mt-4 mt-lg-5" style="display:none;">
+        <img class="advertising img-fluid rounded" alt="advertising">
+    </section>
+    <footer class="footer-content mt-4 mt-lg-5 p-2" style="display:none;">
+        <div class="footer-center c-font-m-small text-secondary pt-3 pb-3">
+            <div class="d-flex flex-wrap">
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Trabalhe conosco</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Termos e condições</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Promoções</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Como cuidamos da sua privacidade</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Acessibilidade</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Contato</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Informações sobre seguros</span>
+                </div>
+                <div class="p-2 flex-md-fill flex-column flex-sm-row">
+                    <span>Programa de Afiliados</span>
+                </div>
+            </div>
+            <div class="text-center text-sm-start p-2">
+                <span>Copyright © 1999-2024 Ebazar.com.br LTDA.</span>
+                <span>CNPJ n.º 03.007.331/0001-41 / Av. das Nações Unidas, nº 3.003, Bonfim, Osasco/SP - CEP 06233-903 - empresa do grupo Mercado Livre.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="config.js"></script>
+    <script>
+        $(document).ready(function() {
+            // dynamic values
+            $(".product-img").attr("src", produto.imagem);
+            $(".product-name").text(produto.nome);
+            $(".product-link").text(produto.nome.length > 18 ? produto.nome.substring(0, 18) + "..." : produto.nome);
+            $(".default-price").text(produto.preco.original);
+            $(".discount-price").text(produto.preco.desconto);
+            $(".percentage-discount").text(desconto);
+            $(".installment-price").text(parcela);
+            $(".advertising").attr("src", global.anuncio.imagem);
+
+            produto.avaliacoes.forEach(avaliacao => {
+                $('.row.justify-content-start').append(`<div class='review-message col-12 col-lg-6 m-lg-2 mt-4'>
+                    <div class='d-flex justify-content-between'>
+                        <div class='c-text-primary'>
+                            <i class='bi bi-star-fill'></i>
+                            <i class='bi bi-star-fill'></i>
+                            <i class='bi bi-star-fill'></i>
+                            <i class='bi bi-star-fill'></i>
+                            <i class='bi bi-star-fill'></i>
+                        </div>
+                        <span class='c-font-m-small text-secondary'>${avaliacao.data}</span>
+                    </div>
+                    <div class='mt-2'>
+                        <span>${avaliacao.texto}</span>
+                    </div>
+                </div>`);
+            });
+            
+            // loading
+            setTimeout(function(){
+                $(".loading-content").fadeOut(1000, function() {
+                    $(".header-content").fadeIn(1000);
+                    $(".section-product-navigation").fadeIn(1000);
+                    $(".main-content").fadeIn(1000);
+                    $(".review-content").fadeIn(1000);
+                    $(".advertising-content").fadeIn(1000);
+                    $(".footer-content").fadeIn(1000);
+                });
+            }, 1000);
+
+            const months = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
+            const get_date = (days = 0) => {
+                const date = new Date();
+                date.setDate(date.getDate() + days);
+                const day = date.getDate().toString().padStart(2, "0");
+                const month = date.getMonth();
+                const year = date.getFullYear();
+                return {day, month, year};
+            };
+
+            const {day: d1} = get_date(9);
+            const {day: d2, month} = get_date(13);
+            const mes = months[month];
+
+            $("#delivery-date").text(`${d1} e ${d2} de ${mes}.`);
+        });
+    </script>
+</body>
+</html>

